@@ -1,19 +1,28 @@
 import C from './constants';
-import { errors } from './store/reducers';
+import { allSkiDays } from './store/reducers';
 
-const state = [
-    "user not authorized",
-    "server feed not found"
-];
+const state = [{
+    "resort": "Kirkwood",
+    "date": "2017-12-7",
+    "powder": true,
+    "backcountry": false
+},
+{
+    "resort": "Test",
+    "date": "2016-12-7",
+    "powder": true,
+    "backcountry": false
+}];
+
 const action = {
-    type: C.CLEAR_ERROR,
-    payload:0
+    type: C.REMOVE_DAY,
+    payload: "2016-12-7"
 }
 
-const nextState = errors(state, action);
+const nextState = allSkiDays(state, action);
 
 console.log(`
-    initial state : ${state}
+    initial state : ${JSON.stringify(state)}
     action: ${JSON.stringify(action)}
     new state: ${JSON.stringify(nextState)}
 `)

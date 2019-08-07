@@ -13,8 +13,6 @@ export const skiDay = (state = null, action) => (action.type === C.ADD_DAY)
 
 
 export const errors = (state = [], action) => {
-
-    
     switch (action.type) {
         case C.ADD_ERROR:
             return [
@@ -22,9 +20,28 @@ export const errors = (state = [], action) => {
                 action.payload
             ]
         case C.CLEAR_ERROR:
-            return state.filter((message,i)=>i!==action.payload);
+            return state.filter((message, i) => i !== action.payload);
         default:
-            console.log("I'm Here - default version");
             return state;
     }
+}
+
+export const allSkiDays = (state = [], action) => {
+    
+
+    switch (action.type) {
+        case C.ADD_DAY:
+            
+            const hadDayAlready = state.some(skiDay=>skiDay.date===action.payload.date);
+
+            return (hadDayAlready) ? state : [
+                ...state,
+                skiDay(null, action)
+            ];
+        case C.REMOVE_DAY:
+            return state.filter((skiDay)=>skiDay.date!==action.payload)
+        default:
+            return state;
+    }
+
 }
