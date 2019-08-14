@@ -9,7 +9,7 @@ export function addDay(resort,date,powder=false,backcountry=false){
 }
 
 
-export function removeDay(resort,date,powder=false,backcountry=false){
+export function removeDay(date){
 
     return {
         type : C.REMOVE_DAY,
