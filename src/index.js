@@ -1,5 +1,5 @@
 import storeFactory from './store';
-import {addDay,removeDay,setGoal} from './store/action';
+import {addDay,removeDay,setGoal,addErrors,clearErrors,changeSuggestions,clearSuggestions} from './store/action';
 import initialState from './initialState';
 
 
@@ -16,4 +16,19 @@ store.dispatch(
 
 store.dispatch(
     setGoal(60)
+);
+
+store.dispatch(
+    addErrors("FILE NOT FOUND EXCEPTION")
+);
+store.dispatch(
+    clearErrors(0)
+);
+
+store.dispatch(
+    changeSuggestions(["One","Two","Three"])
+);
+
+store.dispatch(
+    clearSuggestions()
 );
