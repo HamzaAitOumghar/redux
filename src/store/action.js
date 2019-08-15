@@ -1,4 +1,5 @@
 import C from '../constants';
+import thunk from 'redux-thunk';
 
 export function addDay(resort, date, powder = false, backcountry = false) {
 
@@ -35,12 +36,34 @@ export const clearErrors = (errorNumber) => {
     })
 }
 
-export const changeSuggestions = (suggestion)=>({
-        type : C.CHANGE_SUGGESTIONS,
-        payload : suggestion
+export const changeSuggestions = (suggestion) => ({
+    type: C.CHANGE_SUGGESTIONS,
+    payload: suggestion
 })
 
 
-export const clearSuggestions = ()=>({
-    type : C.CLEAR_SEUGGESTIONS
+export const clearSuggestions = () => ({
+    type: C.CLEAR_SEUGGESTIONS
 })
+
+//first thunk
+
+
+export const randomGoals = () => (dispatch, getState) => {
+
+    if (!getState().resortNames.fetching) {
+        
+        dispatch({
+            type: C.FETCH_RESORT_NAMES
+        });
+
+        setTimeout(() => {
+            dispatch({
+                type: C.CANCEL_FETCHING
+            });
+        }, 1500);
+
+    }
+    
+
+}
