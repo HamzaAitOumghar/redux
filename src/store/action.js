@@ -1,5 +1,7 @@
 import C from '../constants';
 import thunk from 'redux-thunk';
+import fetch from 'isomorphic-fetch';
+
 
 export function addDay(resort, date, powder = false, backcountry = false) {
 
@@ -52,7 +54,7 @@ export const clearSuggestions = () => ({
 export const randomGoals = () => (dispatch, getState) => {
 
     if (!getState().resortNames.fetching) {
-        
+
         dispatch({
             type: C.FETCH_RESORT_NAMES
         });
@@ -64,6 +66,46 @@ export const randomGoals = () => (dispatch, getState) => {
         }, 1500);
 
     }
-    
+}
+
+
+export const suggestResortNames = (value) => (dispatch) => {
+    const URL = "http://localhost:3333/resorts/";
+
+    dispatch({
+        type: C.FETCH_RESORT_NAMES
+    });
+
+
+    fetch(URL + value)
+        .then(resp => resp.json())
+        .then(suggestions => {
+
+            dispatch({
+                type: C.CHANGE_SUGGESTIONS,
+                payload: suggestions
+            });
+
+        })
+        .catch(error => {
+            dispatch({
+                type: C.ADD_ERROR,
+                payload: error.message
+            });
+            dispatch({
+                type: C.CANCEL_FETCHING
+            });
+
+
+        })
+
+
+
 
 }
+
+
+
+
+
+
